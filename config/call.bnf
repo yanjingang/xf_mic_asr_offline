@@ -1,0 +1,13 @@
+﻿#BNF+IAT 1.0 UTF-8;
+!grammar call;
+
+!slot <action>;
+
+!start <callstart>;
+
+<callstart>:(小车|关闭|打开|开始)<choose>;
+<choose>:<action>|<navigation>|<turn>|<follow>;
+<action>:前进|后退|停|过来|休眠|自主建图|导航;
+<navigation>:去(I|J|K|O|P|Q)点;
+<turn>:(左|右)转;
+<follow>:(雷达|色块)跟随;

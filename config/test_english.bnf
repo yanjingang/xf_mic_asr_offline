@@ -1,0 +1,13 @@
+﻿﻿#BNF+IAT 1.0 UTF-8;
+!grammar call;
+
+!slot <action>;
+
+!start <callstart>;
+
+<callstart>:(please|饕餮)<choose>;
+<choose>:<action>|<navigation>|<turn>|<follow>;
+<action>:stop|后退|停|过来|怎么读;
+<navigation>:go(back|ahead|K|O|P|Q);
+<turn>:turn(left|right);
+<follow>:come(here);

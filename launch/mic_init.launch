@@ -1,0 +1,9 @@
+<!--离线命令词识别-->
+<launch>
+  <rosparam command="load" file="$(find xf_mic_asr_offline)/config/appid_params.yaml" />
+  <!--设置为功能包的路径-->
+  <arg name="package_path" default = "$(find xf_mic_asr_offline)" />
+  <node pkg="xf_mic_asr_offline" type="voice_control" name="xf_asr_offline_node" output="screen">
+    <param name="source_path" type="string" value="$(find xf_mic_asr_offline)"/>  
+  </node>
+</launch>
