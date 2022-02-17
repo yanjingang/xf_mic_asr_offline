@@ -1,8 +1,11 @@
 <!--离线命令词识别-->
 <launch>
+  <!-- 迅飞SDK用户ID配置 -->
   <rosparam command="load" file="$(find xf_mic_asr_offline)/config/appid_params.yaml" />
-  <!--设置为功能包的路径-->
+  <!-- 设置为功能包的路径 -->
   <arg name="package_path" default = "$(find xf_mic_asr_offline)" />
+
+  <!-- 主控程序，对接麦克风阵列和SDK，并将SDK识别结果通过topic发布给唤醒控制器或指令控制器 -->
   <node pkg="xf_mic_asr_offline" type="voice_control" name="xf_asr_offline_node" output="screen">
     <param name="source_path" type="string" value="$(find xf_mic_asr_offline)"/>  
   </node>
