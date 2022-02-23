@@ -108,6 +108,7 @@ ENV/
 # temporary files
 *~
 
+*.bak
 *.log
 *.cache
 linux_sdk
