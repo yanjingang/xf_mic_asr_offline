@@ -8,6 +8,22 @@ radar_range: 0.75 #雷达自动避障障碍物阈值，单位：米
 radar_count: 3 #雷达自动避障排除噪点次数
 if_akm_yes_or_no: "no"   #车型，阿克曼车填yes，其他车型填no
 
+
+kitchen_position_x: 2  #语音导航-厨房坐标
+kitchen_position_y: 0
+kitchen_orientation_z: 0
+kitchen_orientation_w: 1
+
+livingroom_position_x: 2  #语音导航-客厅坐标
+livingroom_position_y: 0
+livingroom_orientation_z: 0
+livingroom_orientation_w: 1
+
+sofa_position_x: 2  #语音导航-沙发坐标
+sofa_position_y: 0
+sofa_orientation_z: 0
+sofa_orientation_w: 1
+
 I_position_x: 2  #语音导航I点坐标。
 I_position_y: 0
 I_orientation_z: 0

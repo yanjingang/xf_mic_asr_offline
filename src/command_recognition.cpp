@@ -212,7 +212,7 @@ void voice_words_callback(const std_msgs::String& msg)
 	指令：小车去I点
 	动作：底盘运动控制器失能(导航控制)，发布目标点
 	***********************************/
-	else if(str1 == "小车去I点" || str1 == "小猪去I点")
+	else if(str1 == "小车去I点" || str1 == "小猪去I点" || str1 == "小猪去厨房")
 	{
 		target.pose.position.x = I_position_x;
 		target.pose.position.y = I_position_y;
@@ -236,7 +236,7 @@ void voice_words_callback(const std_msgs::String& msg)
 	指令：小车去J点
 	动作：底盘运动控制器失能(导航控制)，发布目标点
 	***********************************/
-	else if(str1 == "小车去J点" || str1 == "小猪去J点")
+	else if(str1 == "小车去J点" || str1 == "小猪去J点" || str1 == "小猪去客厅")
 	{
 		target.pose.position.x = J_position_x;
 		target.pose.position.y = J_position_y;
@@ -260,7 +260,7 @@ void voice_words_callback(const std_msgs::String& msg)
 	指令：小车去K点
 	动作：底盘运动控制器失能(导航控制)，发布目标点
 	***********************************/
-	else if(str1 == "小车去K点" || str1 == "小猪去K点")
+	else if(str1 == "小车去K点" || str1 == "小猪去K点" || str1 == "小猪来沙发这儿")
 	{
 		target.pose.position.x = K_position_x;
 		target.pose.position.y = K_position_y;
@@ -468,7 +468,7 @@ int main(int argc, char** argv)
 	ros::Subscriber voice_flag_sub = n.subscribe("voice_flag", 1, voice_flag_Callback);
 
 
-	n.param("/command_recognition/audio_path", audio_path, std::string("~/catkin_ws1111/src/xf_mic_asr_offline/feedback_voice"));
+	n.param("/command_recognition/audio_path", audio_path, std::string("~/catkin_ws/src/xf_mic_asr_offline/feedback_voice"));
 
 	n.param<float>("/I_position_x", I_position_x, 1);
 	n.param<float>("/I_position_y", I_position_y, 0);

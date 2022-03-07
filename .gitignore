@@ -112,3 +112,5 @@ ENV/
 *.log
 *.cache
 linux_sdk
+config/msc/res/asr/GrmBuilld
+
