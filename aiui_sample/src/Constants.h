@@ -6,7 +6,7 @@
 #define CFG_FILE_PATH "../config/AIUI/cfg/aiui.cfg"
 //测试音频的路径
 #define TEST_AUDIO_PATH "../config/AIUI/audio/test.pcm"
-
+//asr命令词识别配置
 #define GRAMMAR_FILE_PATH "../config/AIUI/asr/call.bnf"
 
 #define LOG_DIR "../config/AIUI/log"

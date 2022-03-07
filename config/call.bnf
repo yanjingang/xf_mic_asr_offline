@@ -1,11 +1,16 @@
 ﻿#BNF+IAT 1.0 UTF-8;
+
+// 定义语法名称为call
 !grammar call;
 
+// 声明action词槽
 !slot <action>;
 
+// 定义开始规则，同时声明action词槽
 !start <callstart>;
 
-<callstart>:(小车|关闭|打开|开始)<choose>;
+// 词槽定义
+<callstart>:(小车|小猪|关闭|打开|开始)<choose>;
 <choose>:<action>|<navigation>|<turn>|<follow>;
 <action>:前进|后退|停|过来|休眠|自主建图|导航;
 <navigation>:去(I|J|K|O|P|Q)点;

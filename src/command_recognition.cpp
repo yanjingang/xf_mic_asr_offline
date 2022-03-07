@@ -56,7 +56,7 @@ void voice_words_callback(const std_msgs::String& msg)
 {
 	/***指令***/
 	string str1 = msg.data.c_str();    //取传入数据
-	string str2 = "小车前进";
+	/*string str2 = "小车前进";
 	string str3 = "小车后退"; 
 	string str4 = "小车左转";
 	string str5 = "小车右转";
@@ -76,16 +76,16 @@ void voice_words_callback(const std_msgs::String& msg)
 	string str19 = "关闭色块跟随";
 	string str20 = "打开自主建图";
 	string str21 = "关闭自主建图";
-	string str22 = "开始导航";
+	string str22 = "开始导航";*/
 	
 	
 
 
-/***********************************
-指令：小车前进
-动作：底盘运动控制器使能，发布速度指令
-***********************************/
-	if(str1 == str2)
+	/***********************************
+	指令：小车前进
+	动作：底盘运动控制器使能，发布速度指令
+	***********************************/
+	if(str1 == "小车前进" || str1 == "小猪前进" || str1 == "开始前进")
 	{
 		cmd_msg.linear.x = line_vel_x;
 		cmd_msg.angular.z = 0;
@@ -99,11 +99,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车前进"<<endl;
 	}
-/***********************************
-指令：小车后退
-动作：底盘运动控制器使能，发布速度指令
-***********************************/
-	else if(str1 == str3)
+	/***********************************
+	指令：小车后退
+	动作：底盘运动控制器使能，发布速度指令
+	***********************************/
+	else if(str1 == "小车后退" || str1 == "小猪后退" || str1 == "开始后退")
 	{
 		cmd_msg.linear.x = -line_vel_x;
 		cmd_msg.angular.z = 0;
@@ -117,11 +117,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车后退"<<endl;
 	}
-/***********************************
-指令：小车左转
-动作：底盘运动控制器使能，发布速度指令
-***********************************/
-	else if(str1 == str4)
+	/***********************************
+	指令：小车左转
+	动作：底盘运动控制器使能，发布速度指令
+	***********************************/
+	else if(str1 == "小车左转" || str1 == "小猪左转" || str1 == "开始左转")
 	{
 		cmd_msg.linear.x = turn_line_vel_x;
 		cmd_msg.angular.z = ang_vel_z;
@@ -135,11 +135,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车左转"<<endl;
 	}
-/***********************************
-指令：小车右转
-动作：底盘运动控制器使能，发布速度指令
-***********************************/
-	else if(str1 == str5)
+	/***********************************
+	指令：小车右转
+	动作：底盘运动控制器使能，发布速度指令
+	***********************************/
+	else if(str1 == "小车右转" || str1 == "小猪右转" || str1 == "开始右转")
 	{
 		cmd_msg.linear.x = turn_line_vel_x;
 		cmd_msg.angular.z = -ang_vel_z;
@@ -153,11 +153,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车右转"<<endl;
 	}
-/***********************************
-指令：小车停
-动作：底盘运动控制器失能，发布速度空指令
-***********************************/
-	else if(str1 == str6)
+	/***********************************
+	指令：小车停
+	动作：底盘运动控制器失能，发布速度空指令
+	***********************************/
+	else if(str1 == "小车停" || str1 == "小猪停")
 	{
 		cmd_msg.linear.x = 0;
 		cmd_msg.angular.z = 0;
@@ -172,11 +172,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车停"<<endl;
 	}
-/***********************************
-指令：小车休眠
-动作：底盘运动控制器失能，发布速度空指令，唤醒标志位置零
-***********************************/
-	else if(str1 == str7)
+	/***********************************
+	指令：小车休眠
+	动作：底盘运动控制器失能，发布速度空指令，唤醒标志位置零
+	***********************************/
+	else if(str1 == "小车休眠" || str1 == "小猪休眠" || str1 == "开始休眠")
 	{
 		cmd_msg.linear.x = 0;
 		cmd_msg.angular.z = 0;
@@ -194,11 +194,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"小车休眠，等待下一次唤醒"<<endl;
 	}
-/***********************************
-指令：小车过来
-动作：寻找声源标志位置位
-***********************************/
-	else if(str1 == str8)
+	/***********************************
+	指令：小车过来
+	动作：寻找声源标志位置位
+	***********************************/
+	else if(str1 == "小车过来" || str1 == "小猪过来")
 	{
 		std_msgs::Int8 follow_flag_msg;
 		follow_flag_msg.data = 1;
@@ -208,11 +208,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车寻找声源"<<endl;
 	}
-/***********************************
-指令：小车去I点
-动作：底盘运动控制器失能(导航控制)，发布目标点
-***********************************/
-	else if(str1 == str9)
+	/***********************************
+	指令：小车去I点
+	动作：底盘运动控制器失能(导航控制)，发布目标点
+	***********************************/
+	else if(str1 == "小车去I点" || str1 == "小猪去I点")
 	{
 		target.pose.position.x = I_position_x;
 		target.pose.position.y = I_position_y;
@@ -231,13 +231,12 @@ void voice_words_callback(const std_msgs::String& msg)
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		cout<<"好的：小车自主导航至I点"<<endl;
-		
 	}
-/***********************************
-指令：小车去I点
-动作：底盘运动控制器失能(导航控制)，发布目标点
-***********************************/
-	else if(str1 == str10)
+	/***********************************
+	指令：小车去J点
+	动作：底盘运动控制器失能(导航控制)，发布目标点
+	***********************************/
+	else if(str1 == "小车去J点" || str1 == "小猪去J点")
 	{
 		target.pose.position.x = J_position_x;
 		target.pose.position.y = J_position_y;
@@ -257,11 +256,11 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车自主导航至J点"<<endl;
 	}
-/***********************************
-指令：小车去K点
-动作：底盘运动控制器失能(导航控制)，发布目标点
-***********************************/
-	else if(str1 == str11)
+	/***********************************
+	指令：小车去K点
+	动作：底盘运动控制器失能(导航控制)，发布目标点
+	***********************************/
+	else if(str1 == "小车去K点" || str1 == "小猪去K点")
 	{
 		target.pose.position.x = K_position_x;
 		target.pose.position.y = K_position_y;
@@ -281,50 +280,46 @@ void voice_words_callback(const std_msgs::String& msg)
 		system(WHOLE);
 		cout<<"好的：小车自主导航至K点"<<endl;
 	}
-/***********************************
-辅助指令：失败5次
-动作：用户界面打印提醒
-***********************************/
-	else if(str1 == str12)
+	/***********************************
+	辅助指令：失败5次
+	动作：用户界面打印提醒
+	***********************************/
+	else if(str1 == "失败5次")
 	{
 		cout<<"您已经连续【输入空指令or识别失败】5次，累计达15次自动进入休眠，输入有效指令后计数清零"<<endl;
 	}
-/***********************************
-辅助指令：失败10次
-动作：用户界面打印提醒
-***********************************/
-	else if(str1 == str13)
+	/***********************************
+	辅助指令：失败10次
+	动作：用户界面打印提醒
+	***********************************/
+	else if(str1 == "失败10次")
 	{
 		cout<<"您已经连续【输入空指令or识别失败】10次，累计达15次自动进入休眠，输入有效指令后计数清零"<<endl;
 	}
-/***********************************
-辅助指令：遇到障碍物
-动作：用户界面打印提醒
-***********************************/
-	else if(str1 == str14)
+	/***********************************
+	辅助指令：遇到障碍物
+	动作：用户界面打印提醒
+	***********************************/
+	else if(str1 == "遇到障碍物")
 	{
 		OTHER = (char*) "/feedback_voice/Tracker.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		cout<<"小车遇到障碍物，已停止运动"<<endl;
 	}
-/***********************************
-辅助指令：小车唤醒
-动作：用户界面打印提醒
-***********************************/
-	else if(str1 == str15)
+	/***********************************
+	辅助指令：小车唤醒
+	动作：用户界面打印提醒
+	***********************************/
+	else if(str1 == "小车唤醒" || str1 == "小猪唤醒")
 	{
 		OTHER = (char*) "/feedback_voice/awake.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 
 		cout<<"小车已被唤醒，请说语音指令"<<endl;
-		
 	}
-	
-
-
-	else if(str1 == str16)
+	else if(str1 == "小车雷达跟随")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
@@ -334,7 +329,7 @@ void voice_words_callback(const std_msgs::String& msg)
 		laser_follow_flag_pub.publish(laser_follow_flag_msg);
 		cout<<"好的：小车雷达跟随"<<endl;
 	}
-	else if(str1 == str17)
+	else if(str1 == "小车色块跟随")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
@@ -344,22 +339,21 @@ void voice_words_callback(const std_msgs::String& msg)
 		visual_follow_flag_pub.publish(visual_follow_flag_msg);
 		cout<<"好的：小车色块跟随"<<endl;
 	}
-	else if(str1 == str18)
+	else if(str1 == "关闭雷达跟随")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		cout<<"好的：关闭雷达跟随"<<endl;
 	}
-	else if(str1 == str19)
+	else if(str1 == "关闭色块跟随")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		cout<<"好的：关闭色块跟随"<<endl;
- 
 	}
-	else if(str1 == str20)
+	else if(str1 == "打开自主建图")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
@@ -368,16 +362,15 @@ void voice_words_callback(const std_msgs::String& msg)
 		rrt_flag_msg.data = 1;
 		rrt_flag_pub.publish(rrt_flag_msg);
 		cout<<"好的：打开自主建图"<<endl;
-
 	}
-	else if(str1 == str21)
+	else if(str1 == "关闭自主建图")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		cout<<"好的：关闭自主建图"<<endl;
 	}
-	else if(str1 == str22)
+	else if(str1 == "开始导航")
 	{
 		OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
@@ -425,6 +418,8 @@ void kill_pro(char pro_name[])
 	
 }
 */
+
+
 
 /**************************************************************************
 函数功能：主函数

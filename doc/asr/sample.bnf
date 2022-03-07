@@ -1,0 +1,15 @@
+#BNF+IAT 1.0 UTF-8;
+!grammar call;
+!slot <want>;
+!slot <dialpre>;
+!slot <dialsuf>;
+!slot <contact>;
+!slot <dialcmd>;
+!start <callstart>;
+<callstart>:[<want>]<dial>|<dialcmd>;
+<want>:我想;
+<dialcmd>:打电话|打个电话|我想打电话|拨打电话|我要打电话|电话;
+<dial>:<dialpre><contact>[<dialsuf>];
+<dialpre>:打电话给|打个电话给|给|拨打;
+<dialsuf>:打电话|打个电话|的电话|的号码;
+<contact>:张海洋;
