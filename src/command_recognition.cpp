@@ -16,15 +16,15 @@ using namespace std;
 ros::Publisher vel_pub;    //创建底盘运动话题发布者
 ros::Publisher cmd_vel_pub;
 ros::Publisher goal_control_pub;
-ros::Publisher follow_flag_pub;    //创建寻找声源标志位话题发布者
-ros::Publisher cmd_vel_flag_pub;    //创建底盘运动控制器标志位话题发布者
-ros::Publisher awake_flag_pub;    //创建唤醒标志位话题发布者
-ros::Publisher navigation_auto_pub;    //创建自主导航目标点话题发布者
-ros::Publisher visual_follow_flag_pub;
-ros::Publisher laser_follow_flag_pub;
-ros::Publisher rrt_flag_pub;
-geometry_msgs::Twist cmd_msg;    //底盘运动话题消息数据
-geometry_msgs::PoseStamped target;    //导航目标点消息数据
+ros::Publisher follow_flag_pub;         //创建寻找声源标志位话题发布者
+ros::Publisher cmd_vel_flag_pub;        //创建底盘运动控制器标志位话题发布者
+ros::Publisher awake_flag_pub;          //创建唤醒标志位话题发布者
+ros::Publisher navigation_auto_pub;     //创建自主导航目标点话题发布者
+ros::Publisher visual_follow_flag_pub;  //创建色块跟随话题发布者
+ros::Publisher laser_follow_flag_pub;   //创建雷达跟随话题发布者
+ros::Publisher rrt_flag_pub;            //创建自助建图话题发布者
+geometry_msgs::Twist cmd_msg;        //底盘运动话题消息数据
+geometry_msgs::PoseStamped target;   //导航目标点消息数据
 int voice_flag = 0;    //寻找标志位
 int goal_control=0;
 
@@ -54,7 +54,7 @@ float turn_line_vel_x ;
 **************************************************************************/
 void voice_words_callback(const std_msgs::String& msg)
 {
-	/***指令***/
+	/* 指令 */
 	string str1 = msg.data.c_str();    //取传入数据
 	/*string str2 = "小车前进";
 	string str3 = "小车后退"; 
@@ -321,60 +321,79 @@ void voice_words_callback(const std_msgs::String& msg)
 	}
 	else if(str1 == "小车雷达跟随")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		std_msgs::Int8 laser_follow_flag_msg;
 		laser_follow_flag_msg.data = 1;
-		laser_follow_flag_pub.publish(laser_follow_flag_msg);
+		laser_follow_flag_pub.publish(laser_follow_flag_msg);*/
+		system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");
+		system("dbus-launch gnome-terminal -- roslaunch simple_follower laserfollow.launch");//打开雷达跟随节点
 		cout<<"好的：小车雷达跟随"<<endl;
 	}
 	else if(str1 == "小车色块跟随")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);
 		std_msgs::Int8 visual_follow_flag_msg;
 		visual_follow_flag_msg.data = 1;
-		visual_follow_flag_pub.publish(visual_follow_flag_msg);
+		visual_follow_flag_pub.publish(visual_follow_flag_msg);*/
+		system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");
+		system("dbus-launch gnome-terminal -- rosnode kill /laser_tracker");//关闭雷达避障
+		system("dbus-launch gnome-terminal -- roslaunch xf_mic_asr_offline voi_visual_follower.launch");//打开视觉跟随节点
 		cout<<"好的：小车色块跟随"<<endl;
 	}
 	else if(str1 == "关闭雷达跟随")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
-		system(WHOLE);
+		system(WHOLE);*/
+		system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");
 		cout<<"好的：关闭雷达跟随"<<endl;
 	}
 	else if(str1 == "关闭色块跟随")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
-		system(WHOLE);
+		system(WHOLE);*/
+		system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");
 		cout<<"好的：关闭色块跟随"<<endl;
 	}
 	else if(str1 == "打开自主建图")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
 		system(WHOLE);//用扬声器播报:好的
 		std_msgs::Int8 rrt_flag_msg;
 		rrt_flag_msg.data = 1;
-		rrt_flag_pub.publish(rrt_flag_msg);
+		rrt_flag_pub.publish(rrt_flag_msg);*/
+        system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");//用扬声器播报:好的
+		system("rosnode kill /amcl");//关闭amcl定位节点
+		system("rosnode kill /map_server_for_test");//关闭地图保存节点
+		system("rosnode kill /move_base");//关闭/move_base节点
+		system("dbus-launch gnome-terminal -- roslaunch xf_mic_asr_offline voi_rrt_slam.launch");//打开自主建图功能
 		cout<<"好的：打开自主建图"<<endl;
 	}
 	else if(str1 == "关闭自主建图")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
-		system(WHOLE);
+		system(WHOLE);*/
+		system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");
 		cout<<"好的：关闭自主建图"<<endl;
 	}
 	else if(str1 == "开始导航")
 	{
-		OTHER = (char*) "/feedback_voice/OK.wav";
+		/*OTHER = (char*) "/feedback_voice/OK.wav";
 		WHOLE = join((head + audio_path),OTHER);
-		system(WHOLE);
+		system(WHOLE);*/
+		system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/OK.wav");
+		system("rosnode kill /move_base");
+		system("rosnode kill /amcl");
+		system("rosnode kill /map_server_for_test");
+		system("dbus-launch gnome-terminal -- roslaunch xf_mic_asr_offline voi_navigation.launch");//打开导航节点
+		system("dbus-launch gnome-terminal -- roslaunch xf_mic_asr_offline send_mark.launch");//打开多点巡航脚本
 		cout<<"好的：小车开始导航"<<endl;
 	}
 }
@@ -393,12 +412,10 @@ void voice_flag_Callback(std_msgs::Int8 msg)
 	if(voice_flag == 1)
 	{
 		system(WHOLE);
+		//system("aplay -D plughw:CARD=Device,DEV=0 ~/catkin_ws/src/xf_mic_asr_offline/feedback_voice/voice_control.wav");
 		cout<<"语音打开成功"<<endl;
 		//cout<< WHOLE <<endl;
-
-
 	}
-
 }
 
 /*
@@ -409,7 +426,7 @@ void kill_pro(char pro_name[])
 	FILE *fp = popen(get_pid,"r");
 	
 	char pid[10] = {0};
-	fgets(pid,10,fp);
+	fgets(pid, 10,fp);
 	pclose(fp);
 	
 	char cmd[20] = "kill -9 ";
@@ -430,46 +447,37 @@ int main(int argc, char** argv)
 {
 
 	ros::init(argc, argv, "cmd_rec");     //初始化ROS节点
-
 	ros::NodeHandle n;    //创建句柄
 	
 	string if_akm;
 	
-	/***创建寻找声源标志位话题发布者***/
-	follow_flag_pub = n.advertise<std_msgs::Int8>("follow_flag",1);
-
-	/***创建I、J、K点到达标志位话题发布者***/
-	goal_control_pub = n.advertise<std_msgs::Int8>("goal_control_flag",1);
-
-	/***创建底盘运动控制器标志位话题发布者***/
-	cmd_vel_flag_pub = n.advertise<std_msgs::Int8>("cmd_vel_flag",1);
-
-	/***创建底盘运动话题发布者***/
-	vel_pub = n.advertise<geometry_msgs::Twist>("ori_vel",1);
-
+	/* 创建寻找声源标志位话题发布者 */
+	follow_flag_pub = n.advertise<std_msgs::Int8>("follow_flag", 1);
+	/* 创建I、J、K点到达标志位话题发布者 */
+	goal_control_pub = n.advertise<std_msgs::Int8>("goal_control_flag", 1);
+	/* 创建底盘运动控制器标志位话题发布者 */
+	cmd_vel_flag_pub = n.advertise<std_msgs::Int8>("cmd_vel_flag", 1);
+	/* 创建底盘运动话题发布者 */
+	vel_pub = n.advertise<geometry_msgs::Twist>("ori_vel", 1);  // 坐标
 	cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
-
-	/***创建唤醒标志位话题发布者***/
+	/* 创建唤醒标志位话题发布者 */
 	awake_flag_pub = n.advertise<std_msgs::Int8>("awake_flag", 1);
-
+    /* 创建小车色块跟随发布者 */
 	visual_follow_flag_pub = n.advertise<std_msgs::Int8>("visual_follow_flag", 1);
-
+    /* 创建小车雷达跟随发布者 */
 	laser_follow_flag_pub = n.advertise<std_msgs::Int8>("laser_follow_flag", 1);
-
+    /* 创建自助建图发布者 */
 	rrt_flag_pub = n.advertise<std_msgs::Int8>("rrt_flag", 1);
+    /* 创建自主导航目标点话题发布者 */
+	navigation_auto_pub = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal", 1);
 
-  /***创建自主导航目标点话题发布者***/
-	navigation_auto_pub = n.advertise<geometry_msgs::PoseStamped>("/move_base_simple/goal",1);
-
-	/***创建离线命令词识别结果话题订阅者***/
-	ros::Subscriber voice_words_sub = n.subscribe("voice_words",1,voice_words_callback);
-
-	/***创建寻找语音开启标志位话题订阅者***/
+	/* 创建离线命令词识别结果话题订阅者 */
+	ros::Subscriber voice_words_sub = n.subscribe("voice_words", 1, voice_words_callback);
+	/* 创建寻找语音开启标志位话题订阅者 */
 	ros::Subscriber voice_flag_sub = n.subscribe("voice_flag", 1, voice_flag_Callback);
 
-
+    /* 加载配置参数 */
 	n.param("/command_recognition/audio_path", audio_path, std::string("~/catkin_ws/src/xf_mic_asr_offline/feedback_voice"));
-
 	n.param<float>("/I_position_x", I_position_x, 1);
 	n.param<float>("/I_position_y", I_position_y, 0);
 	n.param<float>("/I_orientation_z", I_orientation_z, 0);
@@ -491,7 +499,7 @@ int main(int argc, char** argv)
 	else 
 		turn_line_vel_x = 0;
 
-	/***自主导航目标点数据初始化***/
+	/* 自主导航目标点数据初始化 */
 	target.header.seq = 0;
 	//target.header.stamp;
 	target.header.frame_id = "map";
@@ -504,7 +512,7 @@ int main(int argc, char** argv)
 	target.pose.orientation.w = 1;
 
 
-  /***用户界面***/
+    /* 用户界面 */
 	sleep(7);
 	cout<<"您可以语音控制啦！唤醒词“小猪小猪”"<<endl;
 	cout<<"小车前进———————————>向前"<<endl;

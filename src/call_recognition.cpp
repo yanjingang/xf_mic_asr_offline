@@ -34,8 +34,6 @@ void awake_flag_Callback(std_msgs::Int8 msg)
 	awake_flag = msg.data;
 	printf("awake_flag=%d\n",awake_flag);
 	recognize_fail_count = 0;
-
-	
 }
 
 
@@ -59,21 +57,21 @@ int main(int argc, char *argv[])
 	ros::init(argc, argv, "call_rec");    //初始化ROS节点
 	ros::NodeHandle nh;    //创建句柄
  
-	/***离线命令词识别服务客服端创建***/
+	/* 离线命令词识别服务客服端创建 */
 	ros::ServiceClient get_offline_recognise_result_client = 
-	nh.serviceClient<xf_mic_asr_offline::Get_Offline_Result_srv>("xf_asr_offline_node/get_offline_recognise_result_srv");
+	    nh.serviceClient<xf_mic_asr_offline::Get_Offline_Result_srv>("xf_asr_offline_node/get_offline_recognise_result_srv");
 	
-	/***修改唤醒词服务客户端创建***/
+	/* 修改唤醒词服务客户端创建 */
 	//ros::ServiceClient Set_Awake_Word_client =
 	//nh.serviceClient<xf_mic_asr_offline::Set_Awake_Word_srv>("xf_asr_offline_node/set_awake_word_srv");
 
-	/***唤醒标志位话题订阅者创建***/
+	/* 唤醒标志位话题订阅者创建 */
 	ros::Subscriber awake_flag_sub = nh.subscribe("awake_flag", 1, awake_flag_Callback);
 
-	/***唤醒标志位话题发布者创建***/
+	/* 唤醒标志位话题发布者创建 */
 	ros::Publisher awake_flag_pub = nh.advertise<std_msgs::Int8>("awake_flag", 1);
 
-	/***离线命令词识别结果话题发布者创建***/
+	/* 离线命令词识别结果话题发布者创建 */
 	ros::Publisher control = nh.advertise<std_msgs::String>("voice_words", 1);
 
 	ros::Rate loop_rate(10);    //循环频率10Hz
@@ -82,25 +80,22 @@ int main(int argc, char *argv[])
 	nh.param("/confidence", confidence_threshold, 18);
 	nh.param("/seconds_per_order", seconds_per_order, 3);
 
-  /***请求修改唤醒词服务***/
+    /* 请求修改唤醒词服务 */
 	//xf_mic_asr_offline::Set_Awake_Word_srv SetAwakeWord_srv;
 	//SetAwakeWord_srv.request.awake_word="小车小车";
 	//Set_Awake_Word_client.call(SetAwakeWord_srv);
-  /***等待服务应答***/
+    /* 等待服务应答 */
 	//std::cout << "Set_Awake_Word: " << SetAwakeWord_srv.response.result << endl;
 
-  /***离线命令词识别服务参数设置***/
+    /* 离线命令词识别服务参数设置 */
 	xf_mic_asr_offline::Get_Offline_Result_srv GetOfflineResult_srv;
 	GetOfflineResult_srv.request.offline_recognise_start = 1;
 	GetOfflineResult_srv.request.confidence_threshold = confidence_threshold;
 	GetOfflineResult_srv.request.time_per_order = seconds_per_order;
 
 
-	while(ros::ok())
-	{
-		if(awake_flag)    //判断休眠状态还是唤醒状态
-		{
-
+	while(ros::ok()){
+		if(awake_flag){    //判断休眠状态还是唤醒状态
 			if(get_offline_recognise_result_client.call(GetOfflineResult_srv))    //请求离线命令词识别服务并返回应答为调用成功
 			{
 				//ROS_INFO("succeed to call service \"get_offline_recognise_result_srv\"!");    //打印识别结果、置信度、识别命令词等信息

@@ -420,6 +420,7 @@ int business_proc_callback(business_msg_t businessMsg)
 	}
 	return 0;
 }
+
 /*用于显示离线命令词识别结果*/
 Effective_Result show_result(char *string) //
 {
@@ -475,8 +476,7 @@ bool Get_Offline_Recognise_Result(xf_mic_asr_offline::Get_Offline_Result_srv::Re
 	offline_recognise_switch = req.offline_recognise_start;
 	if (offline_recognise_switch == 1) //如果是离线识别模式
 	{
-
-/*
+        /*
 		ROS_INFO("open the offline recognise mode ...\n");
 		const char *file = join(source_path, DENOISE_SOUND_PATH);
 		remove(file);
@@ -500,7 +500,7 @@ bool Get_Offline_Recognise_Result(xf_mic_asr_offline::Get_Offline_Result_srv::Re
 		char *bnf_path = join(source_path, GRM_FILE);
 		
 		Recognise_Result result = deal_with(unsignend_pcm_path, jet_path, grammer_build_path, bnf_path, LEX_NAME);
-*/
+        */
 
 		//start_to_record_denoised_sound();
 		/*[1-2].开始创建一次语音识别了,首先传递了一些参数,作为QISRbegin()的输入]*/
@@ -590,6 +590,7 @@ bool Get_Offline_Recognise_Result(xf_mic_asr_offline::Get_Offline_Result_srv::Re
 	//ROS_INFO("close the offline recognise mode ...\n");
 	return true;
 }
+
 /*
 content:获取麦克风音频,if msg==1,开启录音并实时发布，若msg==0,关闭录音
 data :20200407 PM
@@ -889,55 +890,44 @@ int main(int argc, char *argv[])
 
 	ros::NodeHandle n;
 
-	/*　topic 发布实时音频文件*/
+	/*　topic 发布实时音频文件 */
 	pub_pcm = ndHandle.advertise<xf_mic_asr_offline::Pcm_Msg>(pcm_topic, 1);
-	/*　topic 发布唤醒角度*/
+	/*　topic 发布唤醒角度 */
 	pub_awake_angle = ndHandle.advertise<std_msgs::Int32>(awake_angle_topic, 1);
-	/*　topic 发布主麦克风*/
+	/*　topic 发布主麦克风 */
 	major_mic_pub = ndHandle.advertise<std_msgs::Int8>(major_mic_topic, 1);
-
-
+    /*　topic 发布离线命令词识别结果 */
 	voice_words_pub = n.advertise<std_msgs::String>(voice_words, 1);
-
+    /*　topic 发布麦克风被唤醒标志 */
 	awake_flag_pub = n.advertise<std_msgs::Int8>(awake_flag, 1);
-
+    /*　topic 发布开机成功标志 */
 	voice_flag_pub = n.advertise<std_msgs::Int8>(voice_flag, 1);
 
 
 	/*srv　接收请求，开启录音或关闭录音*/
 	ros::ServiceServer service_record_start = ndHandle.advertiseService("start_record_srv", Record_Start);
-
 	/*srv　接收请求，返回离线命令词识别结果*/
 	ros::ServiceServer service_get_wav_list = ndHandle.advertiseService("get_offline_recognise_result_srv", Get_Offline_Recognise_Result);
-
 	/*srv 设置主麦克风*/
 	ros::ServiceServer service_set_major_mic = ndHandle.advertiseService("set_major_mic_srv", Set_Major_Mic);
-
 	/*srv 获取主麦克风*/
 	ros::ServiceServer service_get_major_mic = ndHandle.advertiseService("get_major_mic_srv", Get_Major_Mic);
-
 	/*srv 设置主麦克风*/
 	ros::ServiceServer service_set_led_on = ndHandle.advertiseService("set_target_led_on_srv", Set_Led_On);
-
 	/*srv 修改唤醒词*/
 	ros::ServiceServer service_set_awake_word = ndHandle.advertiseService("set_awake_word_srv", Set_Awake_Word);
-
 	/*srv 获取当前唤醒角度*/
 	ros::ServiceServer service_get_awake_angle = ndHandle.advertiseService("get_awake_angle_srv", Get_Awake_Angle);
 
-
 	hid_device *handle = NULL;
 	handle = hid_open();//开启麦克风设备
-
-	if (!handle)
-	{
+	if (!handle){
 		printf(">>>>>无法打开麦克风设备，尝试重新连接进行测试\n");
 		return -1;
 	}
 	printf(">>>>>成功打开麦克风设备\n");
 	protocol_proc_init(send_to_usb_device, recv_from_usb_device, business_proc_callback, err_proc);
 	get_system_status();//获取麦克风状态，是否正常工作
-
 
 
 	std::string begin = "fo|";
@@ -950,39 +940,31 @@ int main(int argc, char *argv[])
 	
 	Recognise_Result inital = initial_asr_paramers(jet_path, grammer_path, bnf_path, LEX_NAME);
 	
-
-
 	sleep(1);
-	if (!is_boot)
-	{
+	if (!is_boot){
 		printf(">>>>>开机中，请稍等！\n");
 	}
-	while (!is_boot)
-	{
-		if (is_reboot)
-		{
+	while (!is_boot){
+		if (is_reboot){
 			break;
 		}
 	}
 	printf(">>>>>开机成功！\n");
 	set_awake_word(awake_words);
 	
-	if(1)
-	{
+	if(1){
 		std_msgs::Int8 voice_flag_msg;
-	voice_flag_msg.data = 1;
-	voice_flag_pub.publish(voice_flag_msg);
+        voice_flag_msg.data = 1;
+        voice_flag_pub.publish(voice_flag_msg);
 	}
 	
 
 	ros::AsyncSpinner spinner(3);
 	spinner.start();
-	if (major_mic_id>5 || major_mic_id<0)
-	{
+	if (major_mic_id>5 || major_mic_id<0){
 		printf(">>>>>未设置主麦，请唤醒或设置主麦\n");
 	}
-	while (major_mic_id>5 || major_mic_id<0)
-	{
+	while (major_mic_id>5 || major_mic_id<0){
 		sleep(1);
 	}
 	printf(">>>>>设置主麦成功！\n");
