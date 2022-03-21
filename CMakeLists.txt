@@ -216,6 +216,21 @@ target_link_libraries(
  )
 
 
+add_executable(motion_control
+ src/motion_control.cpp
+)
+add_dependencies(
+  motion_control
+ ${xf_mic_package_EXPORTED_TARGETS}
+ xf_mic_asr_offline_gencpp
+)
+target_link_libraries(
+  motion_control
+  ${catkin_LIBRARIES}
+#    -ldl -lpthread -lm -lrt -lasound
+)
+
+
 add_executable(node_feedback
   src/node_feedback.cpp 
 )
