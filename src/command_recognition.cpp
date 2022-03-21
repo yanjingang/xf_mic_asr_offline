@@ -14,7 +14,7 @@
 
 using namespace std;
 ros::Publisher vel_pub;    //创建底盘运动话题发布者
-ros::Publisher cmd_vel_pub;
+//ros::Publisher cmd_vel_pub;
 ros::Publisher goal_control_pub;
 ros::Publisher follow_flag_pub;         //创建寻找声源标志位话题发布者
 ros::Publisher cmd_vel_flag_pub;        //创建底盘运动控制器标志位话题发布者
@@ -459,7 +459,7 @@ int main(int argc, char** argv)
 	cmd_vel_flag_pub = n.advertise<std_msgs::Int8>("cmd_vel_flag", 1);
 	/* 创建底盘运动话题发布者 */
 	vel_pub = n.advertise<geometry_msgs::Twist>("ori_vel", 1);  // 坐标
-	cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
+	//cmd_vel_pub = n.advertise<geometry_msgs::Twist>("cmd_vel", 1);
 	/* 创建唤醒标志位话题发布者 */
 	awake_flag_pub = n.advertise<std_msgs::Int8>("awake_flag", 1);
     /* 创建小车色块跟随发布者 */
