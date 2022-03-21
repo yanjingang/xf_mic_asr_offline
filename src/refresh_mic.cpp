@@ -153,7 +153,7 @@ int main(int argc, char** argv)
 	ros::Subscriber pose_sub = node.subscribe("/robot_pose_ekf/odom_combined",1,pose_callback);
 
 	/***创建设置主麦服务客户端***/
-	Set_Major_Mic_client = node.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("xf_asr_offline_node/set_major_mic_srv");
+	Set_Major_Mic_client = node.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("voice_control/set_major_mic_srv");
 	
 	double rate2 = 5;    //刷新频率5Hz
 	ros::Rate loopRate2(rate2);

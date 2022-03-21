@@ -59,11 +59,11 @@ int main(int argc, char *argv[])
  
 	/* 离线命令词识别服务客服端创建 */
 	ros::ServiceClient get_offline_recognise_result_client = 
-	    nh.serviceClient<xf_mic_asr_offline::Get_Offline_Result_srv>("xf_asr_offline_node/get_offline_recognise_result_srv");
+	    nh.serviceClient<xf_mic_asr_offline::Get_Offline_Result_srv>("voice_control/get_offline_recognise_result_srv");
 	
 	/* 修改唤醒词服务客户端创建 */
 	//ros::ServiceClient Set_Awake_Word_client =
-	//nh.serviceClient<xf_mic_asr_offline::Set_Awake_Word_srv>("xf_asr_offline_node/set_awake_word_srv");
+	//nh.serviceClient<xf_mic_asr_offline::Set_Awake_Word_srv>("voice_control/set_awake_word_srv");
 
 	/* 唤醒标志位话题订阅者创建 */
 	ros::Subscriber awake_flag_sub = nh.subscribe("awake_flag", 1, awake_flag_Callback);

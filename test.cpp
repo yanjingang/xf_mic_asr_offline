@@ -20,7 +20,7 @@ int main(int argc, char** argv)
 
 	int i =0 ;
 	
-	ros::ServiceClient Set_Major_Mic_client = nha.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("xf_asr_offline_node/set_major_mic_srv");
+	ros::ServiceClient Set_Major_Mic_client = nha.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("voice_control/set_major_mic_srv");
 	
 	double rate2 = 0.1;    
 	ros::Rate loopRate2(rate2);

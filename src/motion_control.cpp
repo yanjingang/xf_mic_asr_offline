@@ -370,7 +370,7 @@ int main(int argc, char** argv)
 	//goal_reach_pub = node.advertise<std_msgs::Int8>("reach", 1);
 	
 
-	//ros::ServiceClient Set_Major_Mic_client = node.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("xf_asr_offline_node/set_major_mic_srv");
+	//ros::ServiceClient Set_Major_Mic_client = node.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("voice_control/set_major_mic_srv");
 	
  
 	//execute a shutdown function when exiting
