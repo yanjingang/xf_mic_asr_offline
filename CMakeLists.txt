@@ -17,8 +17,8 @@ find_package(catkin REQUIRED COMPONENTS
 )
 
 link_directories(
-  lib/x64
-  #lib/arm64
+  #lib/x64
+  lib/arm64
 )
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
