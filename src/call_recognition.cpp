@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
 	ros::Subscriber awake_flag_sub = nh.subscribe("awake_flag", 1, awake_flag_Callback);
 
 	/* 唤醒标志位话题发布者创建 */
-	ros::Publisher awake_flag_pub = nh.advertise<std_msgs::Int8>("awake_flag", 1);
+	//ros::Publisher awake_flag_pub = nh.advertise<std_msgs::Int8>("awake_flag", 1);
 
 	/* 离线命令词识别结果话题发布者创建 */
 	ros::Publisher control = nh.advertise<std_msgs::String>("voice_words", 1);
