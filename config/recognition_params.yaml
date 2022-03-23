@@ -2,22 +2,22 @@ confidence: 18  #语音识别结果自信度阈值，取值：0-100
 seconds_per_order: 15  #每次语音指令录音长度，单位：秒
 
 line_vel_x: 0.2 #语音控制小车移动的X轴线速度
-ang_vel_z: 0.3 #语音控制小车移动的Z轴角速度速度
+ang_vel_z: 0.4 #语音控制小车移动的Z轴角速度速度
 
 radar_range: 0.75 #雷达自动避障障碍物阈值，单位：米
 radar_count: 3 #雷达自动避障排除噪点次数
 if_akm_yes_or_no: "no"   #车型，阿克曼车填yes，其他车型填no
 
 
-kitchen_position_x: 2  #语音导航-厨房坐标
-kitchen_position_y: 0
-kitchen_orientation_z: 0
-kitchen_orientation_w: 1
+kitchen_position_x: 1.08039116859  #语音导航-厨房坐标
+kitchen_position_y: 0.718764781952
+kitchen_orientation_z: 0.0342203796212
+kitchen_orientation_w: 0.999414311294
 
-livingroom_position_x: 2  #语音导航-客厅坐标
-livingroom_position_y: 0
-livingroom_orientation_z: 0
-livingroom_orientation_w: 1
+livingroom_position_x: -0.225665092468  #语音导航-客厅坐标
+livingroom_position_y: 0.400471121073
+livingroom_orientation_z: -0.0153782079959
+livingroom_orientation_w: 0.999881748368
 
 sofa_position_x: 2  #语音导航-沙发坐标
 sofa_position_y: 0
