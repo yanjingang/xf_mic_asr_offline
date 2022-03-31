@@ -9,10 +9,10 @@ radar_count: 3 #雷达自动避障排除噪点次数
 if_akm_yes_or_no: "no"   #车型，阿克曼车填yes，其他车型填no
 
 
-kitchen_position_x: 1.08039116859  #语音导航-厨房坐标
-kitchen_position_y: 0.718764781952
-kitchen_orientation_z: 0.0342203796212
-kitchen_orientation_w: 0.999414311294
+kitchen_position_x: 2.36919212341  #语音导航-厨房坐标
+kitchen_position_y: 0.845834255219
+kitchen_orientation_z: 0.999999084559
+kitchen_orientation_w: -0.00135310052141
 
 livingroom_position_x: -0.225665092468  #语音导航-客厅坐标
 livingroom_position_y: 0.400471121073
@@ -24,10 +24,10 @@ sofa_position_y: 0
 sofa_orientation_z: 0
 sofa_orientation_w: 1
 
-I_position_x: 1.08039116859  #语音导航I点坐标。
-I_position_y: 0.718764781952
-I_orientation_z: 0.0342203796212
-I_orientation_w: 0.999414311294
+I_position_x: 2.36919212341  #语音导航I点坐标。
+I_position_y: 0.845834255219
+I_orientation_z: 0.999999084559
+I_orientation_w: -0.00135310052141
 
 J_position_x: -0.225665092468 #语音导航J点坐标。
 J_position_y: 0.400471121073
