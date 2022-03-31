@@ -46,7 +46,7 @@ int main(int argc, char *argv[])
 {
 	//int temp=0;
 	   
-	int recognize_fail_count_threshold = 15;    //识别失败次数阈值
+	int recognize_fail_count_threshold = 150;// 15;    //识别失败次数阈值
 	
 	string str1 = "ok";				//语音识别相关字符串
 	string str2 = "fail";				//语音识别相关字符串
