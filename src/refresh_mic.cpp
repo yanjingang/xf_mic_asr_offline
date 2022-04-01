@@ -10,7 +10,8 @@
 #include <iostream>
 #include <std_msgs/Int32.h>
 #include <std_msgs/Int8.h>
-#include <geometry_msgs/PoseWithCovarianceStamped.h>
+//#include <geometry_msgs/PoseWithCovarianceStamped.h>
+#include <nav_msgs/Odometry.h>
 
 double orientation_z;    
 double orientation_w;
@@ -69,8 +70,8 @@ void awake_flag_Callback(std_msgs::Int8 msg)
 入口参数：Pose  turn_on_wheeltec_robot.launch
 返回  值：无
 **************************************************************************/
-void pose_callback(const geometry_msgs::PoseWithCovarianceStamped& msg)
-{
+//void pose_callback(const geometry_msgs::PoseWithCovarianceStamped& msg){
+void pose_callback(const nav_msgs::Odometry& msg){
 	orientation_z = msg.pose.pose.orientation.z;    //获取最新的里程计方位值
 	orientation_w = msg.pose.pose.orientation.w;
 
@@ -150,7 +151,7 @@ int main(int argc, char** argv)
 	ros::Subscriber awake_flag_sub = node.subscribe("awake_flag", 1, awake_flag_Callback);
 
 	/***创建小车姿态话题订阅者***/
-	ros::Subscriber pose_sub = node.subscribe("/robot_pose_ekf/odom_combined",1,pose_callback);
+	ros::Subscriber pose_sub = node.subscribe("/odom",1, pose_callback); //"/robot_pose_ekf/odom_combined",1,pose_callback);
 
 	/***创建设置主麦服务客户端***/
 	Set_Major_Mic_client = node.serviceClient<xf_mic_asr_offline::Set_Major_Mic_srv>("voice_control/set_major_mic_srv");
