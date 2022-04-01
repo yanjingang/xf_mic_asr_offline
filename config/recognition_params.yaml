@@ -29,10 +29,10 @@ I_position_y: -5.08223628998
 I_orientation_z: 0.714168795054
 I_orientation_w: 0.699973522478
 
-J_position_x: 5.83130168915 #语音导航J点坐标。
-J_position_y: -2.28784680367
-J_orientation_z: -0.71167780785
-J_orientation_w: 0.702506012653
+J_position_x: 5.6790471077 #语音导航J点坐标。
+J_position_y: -2.44200921059
+J_orientation_z: -0.71269218246
+J_orientation_w: 0.70147690843
 
 K_position_x: 2 #语音导航K点坐标。
 K_position_y: -1
