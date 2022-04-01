@@ -24,15 +24,15 @@ sofa_position_y: 0
 sofa_orientation_z: 0
 sofa_orientation_w: 1
 
-I_position_x: 2.36919212341  #语音导航I点坐标。
-I_position_y: 0.845834255219
-I_orientation_z: 0.999999084559
-I_orientation_w: -0.00135310052141
+I_position_x: 6.12247228622  #语音导航I点坐标。
+I_position_y: -5.08223628998
+I_orientation_z: 0.714168795054
+I_orientation_w: 0.699973522478
 
-J_position_x: -0.225665092468 #语音导航J点坐标。
-J_position_y: 0.400471121073
-J_orientation_z: -0.0153782079959
-J_orientation_w: 0.999881748368
+J_position_x: 5.83130168915 #语音导航J点坐标。
+J_position_y: -2.28784680367
+J_orientation_z: -0.71167780785
+J_orientation_w: 0.702506012653
 
 K_position_x: 2 #语音导航K点坐标。
 K_position_y: -1
