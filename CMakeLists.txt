@@ -230,6 +230,20 @@ target_link_libraries(
 #    -ldl -lpthread -lm -lrt -lasound
 )
 
+add_executable(refresh_mic
+ src/refresh_mic.cpp
+)
+add_dependencies(
+  refresh_mic
+ ${xf_mic_package_EXPORTED_TARGETS}
+ xf_mic_asr_offline_gencpp
+)
+target_link_libraries(
+  refresh_mic
+  ${catkin_LIBRARIES}
+#    -ldl -lpthread -lm -lrt -lasound
+)
+
 
 add_executable(node_feedback
   src/node_feedback.cpp 

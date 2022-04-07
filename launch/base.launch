@@ -23,8 +23,8 @@
     <!-- 底盘运动控制器 -->
     <node pkg="xf_mic_asr_offline" type="motion_control" name="motion_control" />
     <!-- 刷新主麦方向 -->
-    <!-- 
     <node pkg="xf_mic_asr_offline" type="refresh_mic" name="refresh_mic" />
+    <!-- 
     <node pkg="xf_mic_asr_offline" type="node_opne_feedback" name="node_opne_feedback" output="screen"/>
     <node pkg="xf_mic_asr_offline" type="node_close_feedback" name="node_close_feedback" />
     <node pkg="xf_mic_asr_offline" type="point_navigation" name="point_navigation" />
