@@ -8,7 +8,7 @@
 
 
     <!-- 录音调用控制器，包含休眠功能 -->
-    <node pkg="xf_mic_asr_offline" type="call_recognition" name="call_recognition" />
+    <node pkg="xf_mic_asr_offline" type="call_recognition" name="call_recognition" output="screen"/>
 
     <!-- 命令控制器，命令词识别结果转化为对应的执行动作 -->
     <node pkg="xf_mic_asr_offline" type="command_recognition" name="command_recognition" output="screen">
@@ -21,12 +21,12 @@
     </node>
     
     <!-- 底盘运动控制器 -->
-    <node pkg="xf_mic_asr_offline" type="motion_control" name="motion_control" />
+    <node pkg="xf_mic_asr_offline" type="motion_control" name="motion_control" output="screen"/>
     <!-- 刷新主麦方向 -->
-    <node pkg="xf_mic_asr_offline" type="refresh_mic" name="refresh_mic" />
+    <node pkg="xf_mic_asr_offline" type="refresh_mic" name="refresh_mic" output="screen"/>
     <!-- 
     <node pkg="xf_mic_asr_offline" type="node_opne_feedback" name="node_opne_feedback" output="screen"/>
-    <node pkg="xf_mic_asr_offline" type="node_close_feedback" name="node_close_feedback" />
-    <node pkg="xf_mic_asr_offline" type="point_navigation" name="point_navigation" />
+    <node pkg="xf_mic_asr_offline" type="node_close_feedback" name="node_close_feedback" output="screen" />
+    <node pkg="xf_mic_asr_offline" type="point_navigation" name="point_navigation" output="screen" />
     -->
 </launch>

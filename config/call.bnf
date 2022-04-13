@@ -12,7 +12,7 @@
 // 词槽定义
 <callstart>:(小车|小猪|关闭|打开|开始)<choose>;
 <choose>:<action>|<navigation>|<turn>|<follow>;
-<action>:前进|后退|停|过来|休眠|自主建图|导航;
+<action>:前进|后退|停|过来|看我|休眠|自主建图|导航;
 <navigation>:(去|来)(I点|J点|K点|O点|P点|Q点|厨房|客厅|沙发|餐桌|主卧|次卧室|厕所)[这儿|这里];
 <turn>:(左|右)转;
 <follow>:(雷达|色块)跟随;
