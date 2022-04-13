@@ -201,27 +201,23 @@ void goal_reach_Callback(const move_base_msgs::MoveBaseActionResult& msg)
 	cmd_vel_Pub.publish(geometry_msgs::Twist());
 }*/
 // 只要当前角度与声源角度不同，就转向
-void follow_turn(){
+void follow_turn(int angle){
 	float turn_z = 1;        //转向速度弧度制
-	ros::Rate loopRate(50);	 //50hz
+	//ros::Rate loopRate(50);	 //50hz
 
 	cmd_vel_msg.linear.x = 0;    //保持X轴方向速度为0
-	int i = 0;
-	while(angle > 10){	// 误差角度控制在10度以内
-		//控制不同方向转向
-		if(angle <= 180){
-			cmd_vel_msg.angular.z = -turn_z;
-		}else{
-			angle = 360 - angle;
-			cmd_vel_msg.angular.z = turn_z;
-		}
-		cout<< "angle=" << angle << "i=" << i <<endl;
-		cmd_vel_Pub.publish(cmd_vel_msg); // 将速度指令发送给机器人
-		
-		loopRate.sleep();    //控制频率
+
+	//控制不同方向转向
+	if(angle <= 180){
+		cmd_vel_msg.angular.z = -turn_z;
+	}else{
+		angle = 360 - angle;
+		cmd_vel_msg.angular.z = turn_z;
 	}
-	cmd_vel_msg.angular.z = 0;    //速度置零
-	cmd_vel_Pub.publish(geometry_msgs::Twist());
+	cout<< "angle=" << angle <<endl;
+	cmd_vel_Pub.publish(cmd_vel_msg); // 将速度指令发送给机器人
+
+	//loopRate.sleep();    //控制频率
 }
 
 void akm_follow_turn(int angle)
@@ -418,15 +414,22 @@ int main(int argc, char** argv)
 			if (if_akm=="yes"){
 				akm_follow_turn(angle);
 			}else{
-				//follow_turn(angle);
-				follow_turn();
+				follow_turn(angle);
 			}
-			follow_flag = 0;
-			//Set_Major_Mic_client.call(num);
-			// 转向结束后前进
-			/*turn_fin_flag = 1;
-			cmd_vel_msg.angular.z = 0;
-			cmd_vel_msg.linear.x = 0.2;*/
+			while(angle < 20 || angle > 340){	// 误差角度控制在20度以内
+				//转向结束
+				cmd_vel_msg.linear.x = 0;    //保持X轴方向速度为0
+				cmd_vel_msg.angular.z = 0;    //速度置零
+				cmd_vel_Pub.publish(geometry_msgs::Twist());
+				follow_flag = 0;
+				//Set_Major_Mic_client.call(num);
+
+				//开始前进
+				/*turn_fin_flag = 1;
+				cmd_vel_msg.angular.z = 0;
+				cmd_vel_msg.linear.x = 0.2;*/
+			}
+
 		}
 
 		if(cmd_vel_flag || turn_fin_flag){    //底盘运动控制部分
