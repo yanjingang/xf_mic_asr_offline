@@ -8,7 +8,7 @@
 
 
     <!-- 录音调用控制器，包含休眠功能 -->
-    <node pkg="xf_mic_asr_offline" type="call_recognition" name="call_recognition" output="screen"/>
+    <node pkg="xf_mic_asr_offline" type="call_recognition" name="call_recognition"/>
 
     <!-- 命令控制器，命令词识别结果转化为对应的执行动作 -->
     <node pkg="xf_mic_asr_offline" type="command_recognition" name="command_recognition" output="screen">

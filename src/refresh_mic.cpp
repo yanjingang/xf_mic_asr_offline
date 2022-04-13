@@ -75,8 +75,8 @@ void pose_callback(const nav_msgs::Odometry& msg){
 	orientation_z = msg.pose.pose.orientation.z;    //获取最新的里程计方位值
 	orientation_w = msg.pose.pose.orientation.w;
 
-	printf("z = %f-----\n",orientation_z);
-	printf("w = %f-----\n",orientation_w);
+	//printf("z = %f-----\n",orientation_z);
+	//printf("w = %f-----\n",orientation_w);
 	direction_r = atan2(2*(orientation_w*orientation_z),1-2*(pow(orientation_z,2.0)));
 
 	direction = direction_r*180/3.1415926;

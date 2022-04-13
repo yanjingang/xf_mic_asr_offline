@@ -167,13 +167,12 @@ void goal_reach_Callback(const move_base_msgs::MoveBaseActionResult& msg)
 void follow_turn(int angle)
 {
 	int ticks;    //计数变量
-	float angular_turn_msg = 0.5;  //转向速度弧度制
+	float angular_turn_msg = 1; //0.5;  //转向速度弧度制
 	float angular_duration;    //转向时间
-	float rate1 = 50;    //控制频率
+	float rate1 = 200; //50;    //控制频率
 	ros::Rate loopRate1(rate1);
 
 	//printf("angle =%d\n",angle);
-	cout<< "angle=" << angle <<endl;
 	cmd_vel_msg.linear.x = 0;    //保持X轴方向速度为0
 	
 	/***控制不同方向转向***/
@@ -184,14 +183,16 @@ void follow_turn(int angle)
 		cmd_vel_msg.angular.z = angular_turn_msg;
 	}
 	
-	angular_duration = angle / angular_turn_msg /180 * 3.14159;    //计算转弯时间
+	//angular_duration = angle / angular_turn_msg /180 * 3.14159;    //计算转弯时间
 	//printf("time =%f\n",angular_duration);
-	ticks = int(angular_duration * rate1);    //计算控制次数
+	//ticks = int(angular_duration * rate1);    //计算控制次数
 	//printf("ticks =%d\n",ticks);
-	cout<< "time=" << angular_duration << " ticks=" << ticks <<endl;
+	angular_duration = angle / angular_turn_msg /180 * 3.14159;    //计算转弯时间
+	ticks = int(angular_duration * rate1);    //计算控制次数
+	cout<< "angle=" << angle << " time=" << angular_duration << " ticks=" << ticks <<endl;
 
 	/***控制转向***/
-	for(int i = 10; i < ticks; i++){
+	for(int i = 0; i < ticks; i++){
 		cmd_vel_Pub.publish(cmd_vel_msg); // 将速度指令发送给机器人
 		loopRate1.sleep();    //控制频率50Hz
 		printf("i =%d\n",i);
