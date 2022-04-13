@@ -172,28 +172,26 @@ void follow_turn(int angle)
 	float rate1 = 50;    //控制频率
 	ros::Rate loopRate1(rate1);
 
-	printf("angle =%d\n",angle);
+	//printf("angle =%d\n",angle);
+	cout<< "angle=" << angle <<endl;
 	cmd_vel_msg.linear.x = 0;    //保持X轴方向速度为0
 	
 	/***控制不同方向转向***/
-	if(angle<=180)
-	{
+	if(angle<=180){
 		cmd_vel_msg.angular.z = -angular_turn_msg;
-	}
-	else
-	{
+	}else{
 		angle=360-angle;
 		cmd_vel_msg.angular.z = angular_turn_msg;
 	}
 	
 	angular_duration = angle / angular_turn_msg /180 * 3.14159;    //计算转弯时间
-	printf("time =%f\n",angular_duration);
+	//printf("time =%f\n",angular_duration);
 	ticks = int(angular_duration * rate1);    //计算控制次数
-	printf("ticks =%d\n",ticks);
+	//printf("ticks =%d\n",ticks);
+	cout<< "time=" << angular_duration << " ticks=" << ticks <<endl;
 
 	/***控制转向***/
-	for(int i = 10; i < ticks; i++)
-	{
+	for(int i = 10; i < ticks; i++){
 		cmd_vel_Pub.publish(cmd_vel_msg); // 将速度指令发送给机器人
 		loopRate1.sleep();    //控制频率50Hz
 		printf("i =%d\n",i);
@@ -391,40 +389,30 @@ int main(int argc, char** argv)
 		i=1;
 	else i=0;
 
-	while(ros::ok())
-	{
-		if(follow_flag)    //寻找声源转向部分
-		{
-			if (if_akm=="yes")
-			{
-				//printf("1111111111111111111\n");
+	while(ros::ok()){
+		if(follow_flag){    //寻找声源转向部分
+			if (if_akm=="yes"){
 				akm_follow_turn(angle);
-			}
-			else
-			{
+			}else{
 				follow_turn(angle);
 			}
-				follow_flag = 0;
-				//Set_Major_Mic_client.call(num);
-				turn_fin_flag = 1;
-				cmd_vel_msg.angular.z = 0;
-				cmd_vel_msg.linear.x = 0.2;
-			
+			follow_flag = 0;
+			//Set_Major_Mic_client.call(num);
+			// 转向结束后前进
+			/*turn_fin_flag = 1;
+			cmd_vel_msg.angular.z = 0;
+			cmd_vel_msg.linear.x = 0.2;*/
 		}
 
-		if(cmd_vel_flag || turn_fin_flag)    //底盘运动控制部分
-		{
+		if(cmd_vel_flag || turn_fin_flag){    //底盘运动控制部分
 			cmd_vel_Pub.publish(cmd_vel_msg);    //将速度指令发送给机器人
-
-			if(cmd_vel_msg.linear.x ==0 && cmd_vel_msg.angular.z == 0)
-			{
+			if(cmd_vel_msg.linear.x ==0 && cmd_vel_msg.angular.z == 0){
 				std_msgs::Int8 cmd_vel_flag_msg;
-        			cmd_vel_flag_msg.data = 0;
-       				cmd_vel_flag_pub.publish(cmd_vel_flag_msg);
+				cmd_vel_flag_msg.data = 0;
+				cmd_vel_flag_pub.publish(cmd_vel_flag_msg);
 			}
 
-			if(distance_judgment() && dis_angleX_judgment())    //判断障碍物的距离和方向
-			{
+			if(distance_judgment() && dis_angleX_judgment()){    //判断障碍物的距离和方向
 				temp_count++;
 				if(temp_count > radar_count)    //连续计数5️次停止运动防止碰撞，避免雷达有噪点
 				{

@@ -209,6 +209,20 @@ void voice_words_callback(const std_msgs::String& msg)
 		cout<<"好的：小车寻找声源"<<endl;
 	}
 	/***********************************
+	指令：小车看我
+	动作：寻找声源标志位置位
+	***********************************/
+	else if(str1 == "小车看我" || str1 == "小猪看我")
+	{
+		std_msgs::Int8 follow_flag_msg;
+		follow_flag_msg.data = 1;
+		follow_flag_pub.publish(follow_flag_msg);
+		OTHER = (char*) "/feedback_voice/search_voice.wav";
+		WHOLE = join((head + audio_path),OTHER);
+		system(WHOLE);
+		cout<<"好的：小车寻找声源"<<endl;
+	}
+	/***********************************
 	指令：小车去I点
 	动作：底盘运动控制器失能(导航控制)，发布目标点
 	***********************************/
