@@ -416,12 +416,11 @@ int main(int argc, char** argv)
 			}else{
 				follow_turn(angle);
 			}
-			while(angle < 20 || angle > 340){	// 误差角度控制在20度以内
+			while(angle < 15 || angle > 345){	// 误差角度控制在15度以内
 				//转向结束
-				cmd_vel_msg.linear.x = 0;    //保持X轴方向速度为0
-				cmd_vel_msg.angular.z = 0;    //速度置零
-				cmd_vel_Pub.publish(geometry_msgs::Twist());
 				follow_flag = 0;
+	                        cmd_vel_msg.angular.z = 0;    //速度置零
+				cmd_vel_Pub.publish(geometry_msgs::Twist());
 				//Set_Major_Mic_client.call(num);
 
 				//开始前进
