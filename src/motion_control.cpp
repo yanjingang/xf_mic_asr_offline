@@ -411,7 +411,7 @@ int main(int argc, char** argv)
 
 	while(ros::ok()){
 		//cout << "follow_flag:" << follow_flag  << " if_akm:" << if_akm << " angle:" << angle <<" cmd_vel_flag:" << cmd_vel_flag << "turn_fin_flag:" << turn_fin_flag << endl;
-		if(follow_flag){    //寻找声源转向部分
+		if(follow_flag > 0){    //寻找声源转向部分
 			if (if_akm=="yes"){
 				akm_follow_turn(angle);
 			}else{
@@ -419,15 +419,18 @@ int main(int argc, char** argv)
 			}
 			if(angle < 15 || angle > 345){	// 误差角度控制在15度以内
 				//转向结束
-				follow_flag = 0;
+				//follow_flag = 0;
 				//cmd_vel_msg.angular.z = 0;    //速度置零
 				cmd_vel_Pub.publish(geometry_msgs::Twist());
 				//Set_Major_Mic_client.call(num);
 
 				//开始前进
-				/*turn_fin_flag = 1;
-				cmd_vel_msg.angular.z = 0;
-				cmd_vel_msg.linear.x = 0.2;*/
+				if(follow_flag == 2){
+					turn_fin_flag = 1;
+					cmd_vel_msg.angular.z = 0;
+					cmd_vel_msg.linear.x = 0.2;
+				}
+				follow_flag = 0;	//转向结束
 			}
 
 		}

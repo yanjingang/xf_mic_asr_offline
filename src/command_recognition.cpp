@@ -201,7 +201,7 @@ void voice_words_callback(const std_msgs::String& msg)
 	else if(str1 == "小车过来" || str1 == "小猪过来")
 	{
 		std_msgs::Int8 follow_flag_msg;
-		follow_flag_msg.data = 1;
+		follow_flag_msg.data = 2;
 		follow_flag_pub.publish(follow_flag_msg);
 		OTHER = (char*) "/feedback_voice/search_voice.wav";
 		WHOLE = join((head + audio_path),OTHER);
